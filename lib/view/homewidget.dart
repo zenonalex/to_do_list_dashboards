@@ -22,7 +22,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             listaTarefas.tarefas.removeAt(index);
             Scaffold.of(context).showSnackBar(SnackBar(
                 content: Text(
-                    'Item Removido. Você possui ${listaTarefas.tarefas.length}')));
+                    'Item Removido. Você possui ${listaTarefas.tarefas.length} itens na lista')));
           },
           child: _buildItems(listaTarefas.tarefas[index]),
         );
