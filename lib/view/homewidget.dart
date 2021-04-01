@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../data/lista_tarefas.dart';
+import '../provider/lista_tarefas.dart';
 import '../widget/lista_item_tarefa.dart';
+import '../widget/chart_priority.dart';
+import '../widget/chart_concluded.dart';
 
 class HomeWidget extends StatefulWidget {
   @override
@@ -14,11 +16,27 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lista de Tarefas'),
+        title: Text(
+          'Lista de Tarefas',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: Consumer<ListaTarefas>(
         builder: (context, listaTarefas, widget) {
-          return ListaItemTarefa();
+          return Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ChartPriority(),
+                  ChartConcluded(),
+                ],
+              ),
+              Expanded(
+                child: ListaItemTarefa(),
+              ),
+            ],
+          );
         },
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../data/lista_tarefas.dart';
+import '../provider/lista_tarefas.dart';
 import '../widget/item_tarefa.dart';
 
 class ListaItemTarefa extends StatelessWidget {

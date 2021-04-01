@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './data/lista_tarefas.dart';
+import 'provider/lista_tarefas.dart';
 import './view/homewidget.dart';
 
 void main() {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.red,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           home: HomeWidget()),
