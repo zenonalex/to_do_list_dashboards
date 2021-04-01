@@ -16,7 +16,7 @@ class ListaItemTarefa extends StatelessWidget {
           key: UniqueKey(),
           direction: DismissDirection.endToStart,
           onDismissed: (_) {
-            listaTarefas.tarefas.removeAt(index);
+            listaTarefas.deleteTarefa(index);
             print(listaTarefas.tarefas.length);
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(

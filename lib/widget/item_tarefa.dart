@@ -60,6 +60,7 @@ class ItemTarefa extends StatelessWidget {
                     ),
               onTap: () {
                 listaTarefas.toggleIsChecked(tarefa);
+
                 print(tarefa.description);
                 print(tarefa.isChecked);
               },

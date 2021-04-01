@@ -12,6 +12,12 @@ class ListaTarefas extends ChangeNotifier {
       priority: 'high',
     ),
     Tarefa(
+      name: 'Passar o pano',
+      data: '30/04/2021',
+      description: 'Passar o pano com desinfetante',
+      priority: 'critical',
+    ),
+    Tarefa(
       name: 'Lavar o carro',
       data: '01/05/2021',
       description: 'Lavar e aspirar o carro com produtos  específicos',
@@ -39,6 +45,12 @@ class ListaTarefas extends ChangeNotifier {
 
   toggleIsChecked(Tarefa tarefa) {
     tarefa.isChecked = !tarefa.isChecked;
+    checkedSections();
+    notifyListeners();
+  }
+
+  deleteTarefa(int index) {
+    tarefas.removeAt(index);
     notifyListeners();
   }
 
@@ -67,32 +79,55 @@ class ListaTarefas extends ChangeNotifier {
     }
   }
 
-  List<PieChartSectionData> concludedSections() {
+  List<PieChartSectionData> checkedSections() {
+    int _vChecked = 0;
+    int _vNoChecked = 0;
+
+    for (var i = 0; i < tarefas.length; i++) {
+      if (tarefas[i].isChecked == true) {
+        _vChecked++;
+      }
+    }
+
+    for (var i = 0; i < tarefas.length; i++) {
+      if (tarefas[i].isChecked == false) {
+        _vNoChecked++;
+      }
+    }
+
+    double _pChecked = (_vChecked / tarefas.length) * 100;
+    double _pNoChecked = (_vNoChecked / tarefas.length) * 100;
+
+    if (_vChecked == 0) {
+      _pChecked = 0;
+      _pNoChecked = 100;
+    }
+
     return List.generate(2, (index) {
       switch (index) {
         case 0:
           return PieChartSectionData(
             color: Colors.green,
-            value: 70,
+            value: _pChecked,
             title: 'Concluído',
-            radius: 25,
+            radius: 50,
             titleStyle: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Colors.white,
             ),
             titlePositionPercentageOffset: 0.55,
           );
         case 1:
           return PieChartSectionData(
             color: Colors.red,
-            value: 30,
+            value: _pNoChecked,
             title: 'Pendente',
-            radius: 25,
+            radius: 50,
             titleStyle: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Colors.white,
             ),
             titlePositionPercentageOffset: 0.55,
           );
@@ -132,16 +167,16 @@ class ListaTarefas extends ChangeNotifier {
       }
     }
 
-    double _pLow = _vLow / tarefas.length;
-    double _pStandard = _vStandard / tarefas.length;
-    double _pHigh = _vHigh / tarefas.length;
-    double _pCritical = _vCritical / tarefas.length;
+    double _pLow = (_vLow / tarefas.length) * 100;
+    double _pStandard = (_vStandard / tarefas.length) * 100;
+    double _pHigh = (_vHigh / tarefas.length) * 100;
+    double _pCritical = (_vCritical / tarefas.length) * 100;
 
     return List.generate(4, (index) {
       switch (index) {
         case 0:
           return PieChartSectionData(
-            color: Colors.lightBlue,
+            color: Colors.orange,
             value: _pStandard,
             title: 'Standard',
             radius: 80,
@@ -155,7 +190,7 @@ class ListaTarefas extends ChangeNotifier {
 
         case 1:
           return PieChartSectionData(
-            color: Colors.orange,
+            color: Colors.red,
             value: _pHigh,
             title: 'High',
             radius: 65,
@@ -169,7 +204,7 @@ class ListaTarefas extends ChangeNotifier {
 
         case 2:
           return PieChartSectionData(
-            color: Colors.red,
+            color: Colors.lightBlue,
             value: _pLow,
             title: 'Low',
             radius: 60,
